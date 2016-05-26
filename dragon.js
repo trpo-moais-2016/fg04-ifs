@@ -52,6 +52,7 @@ function getImage(x0, y0, n, imageData) {
         }
         var canvasPoint = fractal.getCanvasPoint(x, y);
         drawPoint(canvasPoint.x, canvasPoint.y, i, imageData);
+        drawPoint(fractal.canvasWidth - canvasPoint.x, fractal.canvasHeight - canvasPoint.y, i, imageData);
         x0 = canvasPoint.x;
         y0 = canvasPoint.y;
     }
@@ -59,8 +60,8 @@ function getImage(x0, y0, n, imageData) {
 }
 
 function drawPoint(x, y, i, imageData) {
-    imageData.data[4 * (x + fractal.canvasWidth * y)] = 255 * (i%3==0 ? 1:0);
-    imageData.data[4 * (x + fractal.canvasWidth * y) + 1] = 255 * (i%3==1 ? 1:0);
-    imageData.data[4 * (x + fractal.canvasWidth * y) + 2] = 255 * (i%3==2 ? 1:0) ;
+    imageData.data[4 * (x + fractal.canvasWidth * y)] = 255 * (i%6==0 ? 1:0) + 255 * (i%6==3 ? 1:0) + 255 * (i%6==4 ? 1:0);
+    imageData.data[4 * (x + fractal.canvasWidth * y) + 1] = 255 * (i%6==1 ? 1:0) + 255 * (i%6==3 ? 1:0) + 128 * (i%6==4 ? 1:0) + 191 * (i%6==5 ? 1:0);
+    imageData.data[4 * (x + fractal.canvasWidth * y) + 2] = 255 * (i%6==2 ? 1:0) + 255 * (i%6==5 ? 1:0);
     imageData.data[4 * (x + fractal.canvasWidth * y) + 3] = 255;
 }
